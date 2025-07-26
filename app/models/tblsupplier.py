@@ -6,10 +6,10 @@ class SupplierBase(BaseModel):
     supplier_name: str
     supplier_contact: str
     supplier_address: str
-    supplier_email: Optional[EmailStr] = None
-    contact_person: Optional[str] = None
-    bank_account_name: Optional[str] = None
-    bank_account_number: Optional[str] = None
+    supplier_email: EmailStr
+    contact_person: str
+    bank_account_name: str
+    bank_account_number: str
 
     class Config:
         json_schema_extra = {

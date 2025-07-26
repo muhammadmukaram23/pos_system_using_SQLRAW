@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from app.routers import tblproductcategory,tblproductunit,tbluser,tblproduct,tblcustomer,tblsupplier, tblinvoice, tblsales,tblreceiveproduct
+from app.routers import tblproductcategory,tblproductunit,tbluser,tblproduct,tblcustomer,tblsupplier, tblinvoice, tblsales,tblreceiveproduct,tblpurchaseorder
 
 app = FastAPI(
-    title="Combo Tours Booking API",
-    description="API for Combo Tours Booking System",
+    title="POS SYSTEM API",
+    description="API for POS SYSTEM",
     version="1.0.0"
 )
 
@@ -16,3 +16,4 @@ app.include_router(tblsupplier.router)
 app.include_router(tblinvoice.router)
 app.include_router(tblsales.router)
 app.include_router(tblreceiveproduct.router)
+app.include_router(tblpurchaseorder.router)

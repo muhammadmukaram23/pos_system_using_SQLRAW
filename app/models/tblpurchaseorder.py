@@ -2,15 +2,15 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import date
 
-class ReceiveProductBase(BaseModel):
+class PurchaseOrderBase(BaseModel):
     product_id: int
     quantity: float
     unit_price: float
     sub_total: float
     supplier_id: int
-    received_date: date
+    order_date: date
     user_id: int
-    purchase_order_id: int
+    status: str = "pending"  # Default value matches your table
 
     class Config:
         json_schema_extra = {
@@ -20,29 +20,28 @@ class ReceiveProductBase(BaseModel):
                 "unit_price": 5.99,
                 "sub_total": 599.00,
                 "supplier_id": 1,
-                "received_date": "2023-05-20",
+                "order_date": "2023-05-20",
                 "user_id": 1,
-                "purchase_order_id": 1
+                "status": "pending"
             }
         }
 
-class ReceiveProductCreate(ReceiveProductBase):
-    receive_product_id: Optional[int] = None  # Optional for creation, will be set by the database
+class PurchaseOrderCreate(PurchaseOrderBase):
+    purchase_order_id: Optional[int] = None  # Will be set by database
     pass
 
-class ReceiveProductResponse(ReceiveProductBase):
-    receive_product_id: int
+class PurchaseOrderResponse(PurchaseOrderBase):
+    purchase_order_id: int
     
-
     class Config:
-        from_attributes = True
+        from_attributes = True  # Orm_mode in older Pydantic versions
 
-class ReceiveProductUpdate(BaseModel):
+class PurchaseOrderUpdate(BaseModel):
     product_id: Optional[int] = None
     quantity: Optional[float] = None
     unit_price: Optional[float] = None
     sub_total: Optional[float] = None
     supplier_id: Optional[int] = None
-    received_date: Optional[date] = None
+    order_date: Optional[date] = None
     user_id: Optional[int] = None
-    purchase_order_id: Optional[int] = None
+    status: Optional[str] = None

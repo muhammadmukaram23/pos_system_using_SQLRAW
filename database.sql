@@ -157,3 +157,5 @@ INSERT INTO tblcustomer (customer_code, customer_name, contact, address) VALUES
 ('CUST001', 'Retail Customer', 'Walk-in', 'N/A'),
 ('CUST002', 'Corporation Inc.', '555-987-6543', '987 Corp Blvd, Business Park'),
 ('CUST003', 'School District', '555-876-5432', '654 Education Ave, Learning Center');
+
+ALTER TABLE tblreceiveproduct MODIFY purchase_order_id INT(11) NOT NULL;

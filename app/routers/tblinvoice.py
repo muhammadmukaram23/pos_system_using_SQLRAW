@@ -177,3 +177,24 @@ def update_invoice(invoice_id: int, invoice: InvoiceCreate):
     finally:
         cursor.close()
         conn.close()
+
+@router.delete("/{invoice_id}", status_code=status.HTTP_200_OK)
+def delete_invoice(invoice_id: int):
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        # Check if invoice exists
+        cursor.execute("SELECT * FROM tblinvoice WHERE invoice_id = %s", (invoice_id,))
+        if not cursor.fetchone():
+            raise HTTPException(status_code=404, detail="Invoice not found")
+        
+        # Delete invoice
+        cursor.execute("DELETE FROM tblinvoice WHERE invoice_id = %s", (invoice_id,))
+        conn.commit()
+        
+        return {"status": "success", "message": "Invoice deleted successfully"}
+    except mysql.connector.Error as err:
+        raise HTTPException(status_code=500, detail=f"Database error: {err}")
+    finally:
+        cursor.close()
+        conn.close()
